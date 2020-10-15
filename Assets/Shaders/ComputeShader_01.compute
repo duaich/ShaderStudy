@@ -1,0 +1,10 @@
+﻿#pragma kernel Main
+
+RWStructuredBuffer<float3> P;
+
+[numthreads(4, 4, 1)]
+void Main(uint3 id : SV_DispatchThreadID)
+{
+	uint f = id.x + id.y * 4 * 32;//0~16384,如果不怎么理解，你可以用for（）结合P[]
+	P[f] = float3(id.x, id.y, id.z) / 1.7 + float3(0, 0, 0);//缩放了粒子间的间距
+}
